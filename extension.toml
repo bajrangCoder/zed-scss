@@ -1,0 +1,11 @@
+id = "scss"
+name = "SCSS"
+description = "SCSS language support"
+version = "0.0.1"
+schema_version = 1
+authors = ["Raunak Raj <bajrangcoders@gmail.com>"]
+repository = "https://github.com/bajrangCoder/zed-scss"
+
+[grammars.scss]
+repository = "https://github.com/tree-sitter-grammars/tree-sitter-scss"
+commit = "9ab738d22bb248771d42e8678d1a307d14990df1"
