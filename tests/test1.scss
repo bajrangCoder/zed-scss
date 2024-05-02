@@ -4,25 +4,7 @@
 // Sass (v3.4.4)
 // Compass (v1.0.1)
 // ----
-p {
-    color: #333;
-    font-size: 16px;
-    span {
-        color: #f00;
-    }
-}
-#main {
-    color: black;
-    .article {
-        border: 1px solid #ccc;
-    }
-}
-input[type="text"] {
-    width: 200px;
-    &:focus {
-        width: 400px;
-    }
-}
+
 @mixin renderGridStyles($settings) {
     .container {
         padding-right: map-get($settings, "margin");

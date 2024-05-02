@@ -15,6 +15,10 @@
 
 "@include" @keyword.import
 
+"@import" @keyword.import
+
+"@keyframes" @keyword.import
+
 [
   "@while"
   "@each"
@@ -25,6 +29,8 @@
 ] @keyword.repeat
 
 (js_comment) @comment
+
+(comment) @comment
 
 (function_name) @function
 
@@ -47,7 +53,8 @@
   (parameters
     (parameter) @variable.parameter))
 
-(plain_value) @string
+(class_selector
+    "." @variable)
 
 (keyword_query) @function
 
@@ -63,7 +70,13 @@
 
 (pseudo_class_selector) @tag
 
+(pseudo_class_selector
+    ":" @variable)
+
 (pseudo_element_selector) @tag
+
+(pseudo_element_selector
+    "::" @variable)
 
 (unit) @attribute
 
@@ -79,9 +92,16 @@
 
 (id_selector) @tag
 
+(id_selector
+    "#" @variable)
+
 (class_selector) @tag
 
+(tag_name) @tag
+
 (string_value) @string
+
+(universal_selector) @punctuation
 
 (include_statement
   (identifier) @function)
