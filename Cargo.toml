@@ -1,0 +1,12 @@
+[package]
+name = "zed_scss"
+version = "0.0.1"
+edition = "2021"
+license = "MIT"
+
+[lib]
+path = "src/scss.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+zed_extension_api = "0.0.6"

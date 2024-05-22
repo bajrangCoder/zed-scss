@@ -16,4 +16,5 @@ brackets = [
         "comment",
     ] },
 ]
+word_characters = ["-"]
 prettier_parser_name = "scss"

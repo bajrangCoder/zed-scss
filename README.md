@@ -2,6 +2,11 @@
 
 SCSS language support for [Zed](https://zed.dev).
 
+## Features
+
+- Syntax Highlighting
+- Completion(uses vscode-css-language-server for completion)
+
 ## Grammar
 
 - [tree-sitter-scss](https://github.com/tree-sitter-grammars/tree-sitter-scss)
@@ -12,7 +17,7 @@ Provide your feedback to improve this extension.
 
 ## Known Issues
 
-- Unable to parse (`#{}` and `@mixin`):
+- Unable to parse (`#{}` and `@include`):
 
   1.
 
@@ -26,7 +31,7 @@ Provide your feedback to improve this extension.
 
   ```scss
   body {
-    @mixin body_long_14;
+    @include fonts.noto-serif-display-400;
     margin: 0;
     background-color: #ffffff;
     color: var(--c-dark);
