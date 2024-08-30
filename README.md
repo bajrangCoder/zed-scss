@@ -38,3 +38,13 @@ Provide your feedback to improve this extension.
     height: 100%;
   }
   ```
+
+## Contributers
+
+<a href="https://github.com/bajrangCoder/zed-scss/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=bajrangCoder/zed-scss" />
+</a>
+
+## License
+
+MIT

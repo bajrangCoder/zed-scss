@@ -34,74 +34,105 @@
 
 (function_name) @function
 
+(variable) @variable
+
+(mixin_statement
+  name: (identifier) @function)
+
+(mixin_statement
+  (parameters
+    (parameter) @variable.parameter))
+
+(function_statement
+  name: (identifier) @function)
+
+(function_statement
+  (parameters
+    (parameter) @variable.parameter))
+
+(include_statement
+  (identifier) @function)
+
+(argument) @variable.parameter
+
+(arguments
+  (variable) @variable.parameter)
+
+(comment) @comment
+
 [
+  (tag_name)
+  (nesting_selector)
+  (universal_selector)
+] @tag
+
+[
+  "~"
+  ">"
+  "+"
+  "-"
+  "*"
+  "/"
+  "="
+  "^="
+  "|="
+  "~="
+  "$="
+  "*="
+  "and"
+  "or"
+  "not"
+  "only"
   ">="
   "<="
 ] @operator
 
-(mixin_statement
-  name: (identifier) @function)
+(attribute_selector (plain_value) @string)
 
-(mixin_statement
-  (parameters
-    (parameter) @variable.parameter))
+(attribute_name) @attribute
+(pseudo_element_selector (tag_name) @attribute)
+(pseudo_class_selector (class_name) @attribute)
 
-(function_statement
-  name: (identifier) @function)
+[
+  (class_name)
+  (id_name)
+  (namespace_name)
+  (property_name)
+  (feature_name)
+] @property
 
-(function_statement
-  (parameters
-    (parameter) @variable.parameter))
+(
+  [
+    (property_name)
+    (plain_value)
+  ] @variable.special
+  (#match? @variable.special "^--")
+)
 
-(class_selector
-    "." @variable)
-
-(keyword_query) @function
-
-(identifier) @variable
-
-(variable) @variable
-
-(argument) @variable.parameter
-
-(arguments) @variable.parameter
-
-(property_name) @property
-
-(pseudo_class_selector) @tag
-
-(pseudo_class_selector
-    ":" @variable)
-
-(pseudo_element_selector) @tag
-
-(pseudo_element_selector
-    "::" @variable)
-
-(unit) @attribute
-
-(important) @keyword
-
-(color_value) @string.special
-
-(integer_value) @constant
-
-(media_statement) @function
-
-(attribute_selector) @property
-
-(id_selector) @tag
-
-(id_selector
-    "#" @variable)
-
-(class_selector) @tag
-
-(tag_name) @tag
+[
+  "@media"
+  "@import"
+  "@charset"
+  "@namespace"
+  "@supports"
+  "@keyframes"
+  (at_keyword)
+  (to)
+  (from)
+  (important)
+]  @keyword
 
 (string_value) @string
+(color_value) @string.special
 
-(universal_selector) @punctuation
+[
+  (integer_value)
+  (float_value)
+] @number
 
-(include_statement
-  (identifier) @function)
+(unit) @type
+
+[
+  ","
+  ":"
+] @punctuation.delimiter

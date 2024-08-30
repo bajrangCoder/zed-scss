@@ -1,3 +1,4 @@
 target
 *.wasm
 grammars
+test.scss
