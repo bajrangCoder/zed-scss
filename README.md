@@ -1,11 +1,13 @@
 # zed-scss
 
-SCSS language support for [Zed](https://zed.dev).
+SCSS support for [Zed](https://zed.dev).
 
 ## Features
 
 - Syntax Highlighting
-- Completion(uses vscode-css-language-server for completion)
+- Outline View
+- IntelliSense(uses vscode-css-language-server and [some-sass](https://github.com/wkillerud/some-sass/))
+- Formatting
 
 ## Grammar
 
@@ -17,7 +19,7 @@ Provide your feedback to improve this extension.
 
 ## Known Issues
 
-- Unable to parse (`#{}` and `@include`):
+- Unable to parse (`#{}` and `@include`) but works in some cases:
 
   1.
 
@@ -30,12 +32,12 @@ Provide your feedback to improve this extension.
   2.
 
   ```scss
-  body {
-    @include fonts.noto-serif-display-400;
-    margin: 0;
-    background-color: #ffffff;
-    color: var(--c-dark);
-    height: 100%;
+  li {
+    display: inline-block;
+    margin: {
+        left: -2px;
+        right: 2em;
+    }
   }
   ```
 

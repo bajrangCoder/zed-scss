@@ -1,86 +1,38 @@
-use std::{env, fs};
-use zed_extension_api::{self as zed, Result};
+mod language_servers;
 
-const SERVER_PATH: &str =
-    "node_modules/vscode-langservers-extracted/bin/vscode-css-language-server";
-const PACKAGE_NAME: &str = "vscode-langservers-extracted";
+use zed_extension_api::{self as zed, LanguageServerId, Result};
 
-pub struct SCSSExtension {
-    did_find_server: bool,
-}
+use crate::language_servers::{SCSSLsp, SomeSass};
 
-impl SCSSExtension {
-    fn server_exists(&self) -> bool {
-        fs::metadata(SERVER_PATH).map_or(false, |stat| stat.is_file())
-    }
-
-    fn server_script_path(&mut self, id: &zed::LanguageServerId) -> Result<String> {
-        let server_exists = self.server_exists();
-        if self.did_find_server && server_exists {
-            return Ok(SERVER_PATH.to_string());
-        }
-
-        zed::set_language_server_installation_status(
-            id,
-            &zed::LanguageServerInstallationStatus::CheckingForUpdate,
-        );
-        let version = zed::npm_package_latest_version(PACKAGE_NAME)?;
-
-        if !server_exists
-            || zed::npm_package_installed_version(PACKAGE_NAME)?.as_ref() != Some(&version)
-        {
-            zed::set_language_server_installation_status(
-                id,
-                &zed::LanguageServerInstallationStatus::Downloading,
-            );
-            let result = zed::npm_install_package(PACKAGE_NAME, &version);
-            match result {
-                Ok(()) => {
-                    if !self.server_exists() {
-                        Err(format!(
-                                "installed package '{PACKAGE_NAME}' did not contain expected path '{SERVER_PATH}'",
-                            ))?;
-                    }
-                }
-                Err(error) => {
-                    if !self.server_exists() {
-                        Err(error)?;
-                    }
-                }
-            }
-        }
-
-        self.did_find_server = true;
-        Ok(SERVER_PATH.to_string())
-    }
+struct SCSSExtension {
+    scss_lsp: Option<SCSSLsp>,
+    some_sass: Option<SomeSass>,
 }
 
 impl zed::Extension for SCSSExtension {
     fn new() -> Self {
         Self {
-            did_find_server: false,
+            scss_lsp: None,
+            some_sass: None,
         }
     }
 
     fn language_server_command(
         &mut self,
-        id: &zed::LanguageServerId,
-        _: &zed::Worktree,
+        language_server_id: &LanguageServerId,
+        worktree: &zed::Worktree,
     ) -> Result<zed::Command> {
-        let server_path = self.server_script_path(id)?;
-        Ok(zed::Command {
-            command: zed::node_binary_path()?,
-            args: vec![
-                env::current_dir()
-                    .unwrap()
-                    .join(&server_path)
-                    .to_string_lossy()
-                    .to_string(),
-                "--stdio".to_string(),
-            ],
-            env: Default::default(),
-        })
+        match language_server_id.as_ref() {
+            SCSSLsp::LANGUAGE_SERVER_ID => {
+                let intelephense = self.scss_lsp.get_or_insert_with(|| SCSSLsp::new());
+                intelephense.language_server_command(language_server_id, worktree)
+            }
+            SomeSass::LANGUAGE_SERVER_ID => {
+                let some_sass = self.some_sass.get_or_insert_with(|| SomeSass::new());
+                some_sass.language_server_command(language_server_id, worktree)
+            }
+            language_server_id => Err(format!("unknown language server: {language_server_id}")),
+        }
     }
 }
-
 zed::register_extension!(SCSSExtension);
