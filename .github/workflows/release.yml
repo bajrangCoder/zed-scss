@@ -11,6 +11,6 @@ jobs:
       - uses: huacnlee/zed-extension-action@v1
         with:
           extension-name: scss
-          push-to: bajrangCoder/zed-extensions
+          push-to: bajrangCoder/extensions
         env:
           COMMITTER_TOKEN: ${{ secrets.COMMITTER_TOKEN }}
