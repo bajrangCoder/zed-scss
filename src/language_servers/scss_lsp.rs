@@ -2,6 +2,8 @@ use std::{env, fs};
 
 use zed_extension_api::{self as zed, LanguageServerId, Result};
 
+use crate::zed_ext;
+
 const SERVER_PATH: &str =
     "node_modules/vscode-langservers-extracted/bin/vscode-css-language-server";
 const PACKAGE_NAME: &str = "vscode-langservers-extracted";
@@ -36,8 +38,7 @@ impl SCSSLsp {
         Ok(zed::Command {
             command: zed::node_binary_path()?,
             args: vec![
-                env::current_dir()
-                    .unwrap()
+                zed_ext::sanitize_windows_path(env::current_dir().unwrap())
                     .join(&server_path)
                     .to_string_lossy()
                     .to_string(),
