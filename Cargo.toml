@@ -1,6 +1,6 @@
 [package]
 name = "zed_scss"
-version = "0.0.6"
+version = "0.1.0"
 edition = "2021"
 license = "MIT"
 

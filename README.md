@@ -11,35 +11,12 @@ SCSS support for [Zed](https://zed.dev).
 
 ## Grammar
 
-- [tree-sitter-scss](https://github.com/tree-sitter-grammars/tree-sitter-scss)
+- [tree-sitter-scss](https://github.com/savetheclocktower/tree-sitter-scss)
 
 ## Feedback
 
 Provide your feedback to improve this extension.
 
-## Known Issues
-
-- Unable to parse (`#{}` and `@include`) but works in some cases:
-
-  1.
-
-  ```scss
-  color: $color; // Correct formatting
-  color: #{$color}; // Breaks formatting
-  color: $color; // Incorrect formatting
-  ```
-
-  2.
-
-  ```scss
-  li {
-    display: inline-block;
-    margin: {
-        left: -2px;
-        right: 2em;
-    }
-  }
-  ```
 
 ## Contributers
 
