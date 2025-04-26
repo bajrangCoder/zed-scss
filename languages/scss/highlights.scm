@@ -114,6 +114,9 @@
 ] @number
 (unit) @type
 
+(boolean_value) @boolean
+(null_value) @constant.builtin
+
 [
   ","
   ":"
