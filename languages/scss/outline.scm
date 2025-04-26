@@ -1,15 +1,22 @@
 (stylesheet
     (import_statement
         "@import" @context
-        ((string_value) @name)) @item)
-
+        ((_) @name)
+    ) @item
+)
 
 (rule_set
     (selectors
       .
       (_) @name
       ("," @name (_) @name)*
-    )) @item
+    )
+    (block)
+) @item
+
+; (declaration
+;   (variable_name) @name
+; ) @item
 
 (media_statement
     "@media" @context
@@ -19,37 +26,80 @@
 
 (mixin_statement
     "@mixin" @context
-    (_) @name
-    (parameters) @item
-    (block) @item
+    (name) @name
+    (_) @context.extra
+    (block)
 ) @item
 
 (function_statement
     "@function" @context
-    (identifier) @name
+    (name) @name
     (parameters) @context.extra
 ) @item
 
 (each_statement
     "@each" @context
-    (_) @name
+    (value) @name
     "in" @context.extra
-    (variable) @context.extra
+    (_) @context.extra
+    (block)
 ) @item
-
 
 (for_statement
     "@for" @context
-    (variable) @name
+    (variable_name) @name
     "from" @context.extra
-    (integer_value) @context.extra
+    (_) @context.extra
     "through" @context.extra
-    (integer_value) @context.extra
+    (_) @context.extra
+    (block)
 ) @item
 
 (while_statement
-    "@while" @context
-    (binary_expression) @name
+    "@while" @name
+    (_) @context.extra
+    (block)
+) @item
+
+(use_statement
+    "@use" @context
+    (_) @name
+) @item
+
+(forward_statement
+    "@forward" @context
+    (_) @name
+) @item
+
+(if_clause
+  "@if" @context
+  (condition) @name
+  (block)
+) @item
+
+(else_if_clause
+    "@else" @context
+    "if" @context.extra
+    (condition) @name
+    (block)
+) @item
+
+(else_clause
+    "@else" @name
+    (block)
+) @item
+
+(keyframes_statement
+    "@keyframes" @context
+    (keyframes_name) @name
+) @item
+
+(placeholder
+    (placeholder_selector
+      "%" @context
+      (placeholder_name) @name
+    )
+    (block)
 ) @item
 
 (comment) @annotation
