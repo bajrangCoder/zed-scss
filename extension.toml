@@ -8,7 +8,7 @@ repository = "https://github.com/bajrangCoder/zed-scss"
 
 [grammars.scss]
 repository = "https://github.com/savetheclocktower/tree-sitter-scss"
-commit = "090d25a5fc829ce6956201cf55ab6b6eacad999c"
+commit = "f5dfc3b4609d01fb11af8c97f3948fffeff25e92"
 
 [language_servers.scss-lsp]
 name = "SCSS Language Server"
