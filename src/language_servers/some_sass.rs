@@ -2,8 +2,6 @@ use std::{env, fs};
 
 use zed_extension_api::{self as zed, LanguageServerId, Result};
 
-use crate::zed_ext;
-
 const SERVER_PATH: &str = "node_modules/some-sass-language-server/bin/some-sass-language-server";
 const PACKAGE_NAME: &str = "some-sass-language-server";
 
@@ -37,7 +35,8 @@ impl SomeSass {
         Ok(zed::Command {
             command: zed::node_binary_path()?,
             args: vec![
-                zed_ext::sanitize_windows_path(env::current_dir().unwrap())
+                env::current_dir()
+                    .unwrap()
                     .join(&server_path)
                     .to_string_lossy()
                     .to_string(),
