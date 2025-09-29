@@ -1,7 +1,7 @@
 id = "scss"
 name = "SCSS"
 description = "SCSS support"
-version = "0.1.1"
+version = "0.1.2"
 schema_version = 1
 authors = ["Raunak Raj <bajrangcoders@gmail.com>"]
 repository = "https://github.com/bajrangCoder/zed-scss"
