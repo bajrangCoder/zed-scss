@@ -1,6 +1,6 @@
 use std::{env, fs};
 
-use zed_extension_api::{self as zed, LanguageServerId, Result};
+use zed_extension_api::{self as zed, settings::LspSettings, LanguageServerId, Result};
 
 const SERVER_PATH: &str =
     "node_modules/vscode-langservers-extracted/bin/vscode-css-language-server";
@@ -89,5 +89,31 @@ impl SCSSLsp {
 
         self.did_find_server = true;
         Ok(SERVER_PATH.to_string())
+    }
+
+    pub fn language_server_initialization_options(
+        &mut self,
+        language_server_id: &LanguageServerId,
+        worktree: &zed::Worktree,
+    ) -> Result<Option<zed::serde_json::Value>> {
+        let options = LspSettings::for_worktree(language_server_id.as_ref(), worktree)
+            .ok()
+            .and_then(|lsp_settings| lsp_settings.initialization_options);
+        Ok(options)
+    }
+
+    pub fn language_server_workspace_configuration(
+        &mut self,
+        language_server_id: &LanguageServerId,
+        worktree: &zed::Worktree,
+    ) -> Result<Option<zed::serde_json::Value>> {
+        if let Ok(Some(settings)) = LspSettings::for_worktree(language_server_id.as_ref(), worktree)
+            .map(|lsp_settings| lsp_settings.settings)
+        {
+            Ok(Some(settings))
+        } else {
+            self.language_server_initialization_options(language_server_id, worktree)
+                .map(|init_options| init_options.and_then(|opts| opts.get("settings").cloned()))
+        }
     }
 }

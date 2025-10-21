@@ -34,5 +34,41 @@ impl zed::Extension for SCSSExtension {
             language_server_id => Err(format!("unknown language server: {language_server_id}")),
         }
     }
+
+    fn language_server_initialization_options(
+        &mut self,
+        language_server_id: &LanguageServerId,
+        worktree: &zed::Worktree,
+    ) -> Result<Option<zed::serde_json::Value>> {
+        match language_server_id.as_ref() {
+            SomeSass::LANGUAGE_SERVER_ID => {
+                let some_sass = self.some_sass.get_or_insert_with(|| SomeSass::new());
+                some_sass.language_server_initialization_options(language_server_id, worktree)
+            }
+            SCSSLsp::LANGUAGE_SERVER_ID => {
+                let scss_lsp = self.scss_lsp.get_or_insert_with(|| SCSSLsp::new());
+                scss_lsp.language_server_initialization_options(language_server_id, worktree)
+            }
+            _ => Ok(None),
+        }
+    }
+
+    fn language_server_workspace_configuration(
+        &mut self,
+        language_server_id: &LanguageServerId,
+        worktree: &zed::Worktree,
+    ) -> Result<Option<zed::serde_json::Value>> {
+        match language_server_id.as_ref() {
+            SomeSass::LANGUAGE_SERVER_ID => {
+                let some_sass = self.some_sass.get_or_insert_with(|| SomeSass::new());
+                some_sass.language_server_workspace_configuration(language_server_id, worktree)
+            }
+            SCSSLsp::LANGUAGE_SERVER_ID => {
+                let scss_lsp = self.scss_lsp.get_or_insert_with(|| SCSSLsp::new());
+                scss_lsp.language_server_workspace_configuration(language_server_id, worktree)
+            }
+            _ => Ok(None),
+        }
+    }
 }
 zed::register_extension!(SCSSExtension);
