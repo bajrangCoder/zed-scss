@@ -3,9 +3,11 @@
 [
   (tag_name)
   (universal_selector)
+  (nesting_selector)
 ] @tag
 (attribute_selector (plain_value) @string)
-(nesting_selector) @variable.other.member
+(parenthesized_query
+  (keyword_query) @property)
 
 [
   "~"
@@ -16,63 +18,79 @@
   "/"
   "="
   "^="
+  "|"
   "|="
   "~="
   "$="
   "*="
-  "and"
-  "or"
-  "not"
-  "only"
   ">="
   "<="
 ] @operator
 
+[
+  "and"
+  "or"
+  "not"
+  "only"
+] @keyword.operator
+
 (attribute_selector (plain_value) @string)
-(pseudo_element_selector (tag_name) @attribute)
-(pseudo_class_selector (class_name) @attribute)
+(pseudo_element_selector "::" (tag_name) @selector.pseudo)
+(pseudo_class_selector ":" (class_name) @selector.pseudo)
 
 (variable_name) @variable.other.member
 (variable_value) @variable.other.member
 (argument_name) @variable.parameter
 
 [
-  (class_name)
-  (id_name)
-  (namespace_name)
   (feature_name)
   (identifier)
   (property_name)
 ] @property
 
+(id_name) @selector.id
+(class_name) @selector.class
+(namespace_name) @namespace
+(namespace_selector (tag_name) @namespace "|")
+
 (attribute_name) @attribute
 
 (function_name) @function
+
+[
+  (plain_value)
+  (keyframes_name)
+  (keyword_query)
+] @constant.builtin
 
 (
   [
     (property_name)
     (plain_value)
-  ] @variable.special
-  (#match? @variable.special "^--")
+  ] @variable
+  (#match? @variable "^--")
 )
 
 [
-    "@at-root"
-    "@charset"
-    "@debug"
-    "@error"
-    "@extend"
-    "@keyframes"
-    "@media"
-    "@mixin"
-    "@supports"
-    "@warn"
-] @constant.builtin
+  "@media"
+  "@import"
+  "@charset"
+  "@namespace"
+  "@supports"
+  "@keyframes"
+  "@at-root"
+  "@debug"
+  "@error"
+  "@extend"
+  "@mixin"
+  "@warn"
+  (at_keyword)
+  (to)
+  (from)
+  (important)
+] @keyword
 
 "@function" @function.method
-
-"@namespace" @namespace
 
 "@return" @keyword.control.return
 
@@ -98,13 +116,6 @@
     "@use"
 ] @keyword.control.import
 
-[
-  (at_keyword)
-  (to)
-  (from)
-  (important)
-]  @keyword
-
 (string_value) @string
 (color_value) @string.special
 
@@ -112,7 +123,7 @@
   (integer_value)
   (float_value)
 ] @number
-(unit) @type
+(unit) @type.unit
 
 (boolean_value) @boolean
 (null_value) @constant.builtin
@@ -123,8 +134,8 @@
   "."
   "::"
   ";"
-  "#"
 ] @punctuation.delimiter
+(id_selector "#" @punctuation.delimiter)
 
 [
   "{"
