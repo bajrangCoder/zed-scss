@@ -1,6 +1,6 @@
 id = "scss"
 name = "SCSS"
-description = "SCSS support"
+description = "SCSS and SASS support"
 version = "0.1.4"
 schema_version = 1
 authors = ["Raunak Raj <bajrangcoders@gmail.com>"]
@@ -8,7 +8,12 @@ repository = "https://github.com/bajrangCoder/zed-scss"
 
 [grammars.scss]
 repository = "https://github.com/savetheclocktower/tree-sitter-scss"
-commit = "f5dfc3b4609d01fb11af8c97f3948fffeff25e92"
+rev = "f5dfc3b4609d01fb11af8c97f3948fffeff25e92"
+
+
+[grammars.sass]
+repository = "https://github.com/bajrangCoder/tree-sitter-sass"
+rev = "59b6625515189eba5cc8de9d910117b3600fe635"
 
 [language_servers.scss-lsp]
 name = "SCSS Language Server"
@@ -16,4 +21,8 @@ language = "SCSS"
 
 [language_servers.some-sass-lsp]
 name = "Some Sass Language Server"
-language = "SCSS"
+language_servers = ["SCSS", "SASS"]
+
+[language-servers.some-sass-lsp.language_ids]
+"SCSS" = "scss"
+"SASS" = "sass"
