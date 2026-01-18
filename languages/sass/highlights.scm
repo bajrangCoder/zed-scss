@@ -2,7 +2,6 @@
 (comment) @comment
 (single_line_comment) @comment
 
-
 ; Keywords
 [
   "@import"
@@ -13,6 +12,8 @@
   "@namespace"
   "@supports"
   "@scope"
+  "@layer"
+  "@container"
   "@font-face"
   "@mixin"
   "@include"
@@ -78,6 +79,9 @@
 
 ; Colors
 (color_value) @string.special
+
+; Unicode Range
+(unicode_range) @string.special
 
 ; Strings
 (string_value) @string
@@ -182,6 +186,14 @@
 
 ; Media queries
 (keyword_query) @keyword
+(feature_name) @property
+
+; Range queries
+(range_query) @keyword
+
+; Layer and Container
+(layer_name) @type
+(container_name) @type
 
 ; Keyframes
 (keyframes_name) @string.special
