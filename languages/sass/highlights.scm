@@ -61,12 +61,6 @@
 (boolean_value) @constant
 (null_value) @constant
 
-; CSS Keywords
-(css_keyword) @constant
-
-; Color Keywords
-(color_keyword) @constant
-
 ; CSS Custom Properties
 (custom_property_name) @property
 

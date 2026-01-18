@@ -13,7 +13,7 @@ rev = "f5dfc3b4609d01fb11af8c97f3948fffeff25e92"
 
 [grammars.sass]
 repository = "https://github.com/bajrangCoder/tree-sitter-sass"
-rev = "26e67021380a2fe0cda89bafd2e131d554f3d2af"
+rev = "cb36afc4fcf48fe94f7d18820a75a33785c63cb3"
 
 [language_servers.scss-lsp]
 name = "SCSS Language Server"
