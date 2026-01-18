@@ -2,6 +2,7 @@
 (comment) @comment
 (single_line_comment) @comment
 
+
 ; Keywords
 [
   "@import"
@@ -10,8 +11,8 @@
   "@media"
   "@charset"
   "@namespace"
-  "@keyframes"
   "@supports"
+  "@scope"
   "@font-face"
   "@mixin"
   "@include"
@@ -70,9 +71,10 @@
 (global) @keyword
 (optional_flag) @keyword
 
-; Numbers
+; Numbers and units
 (integer_value) @number
 (float_value) @number
+(unit) @type
 
 ; Colors
 (color_value) @string.special
@@ -80,7 +82,6 @@
 ; Strings
 (string_value) @string
 (escape_sequence) @string.escape
-(unicode_escape) @string.escape
 
 ; Variables
 (variable_name) @variable
