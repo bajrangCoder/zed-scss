@@ -1,0 +1,332 @@
+// Sass (indented syntax) Example File
+// This file demonstrates the full syntax capabilities
+
+// Module imports
+@use "sass:math"
+@use "sass:color"
+@use "sass:list"
+@use "sass:map"
+
+// Variables
+$primary-color: #3498db
+$secondary-color: #2ecc71
+$font-stack: 'Helvetica Neue', Arial, sans-serif
+$base-font-size: 16px
+$spacing-unit: 8px
+
+// Maps
+$breakpoints: (small: 576px, medium: 768px, large: 992px, xlarge: 1200px)
+
+$theme-colors: (primary: $primary-color, secondary: $secondary-color, success: #27ae60, danger: #e74c3c, warning: #f39c12, info: #3498db)
+
+// Functions
+@function px-to-rem($px, $base: $base-font-size)
+  @return math.div($px, $base) * 1rem
+
+@function spacing($multiplier: 1)
+  @return $spacing-unit * $multiplier
+
+@function color-contrast($color)
+  $luminance: color.lightness($color)
+  @if $luminance > 50%
+    @return #000
+  @else
+    @return #fff
+
+// Mixins
+@mixin flex-center
+  display: flex
+  align-items: center
+  justify-content: center
+
+@mixin size($width, $height: $width)
+  width: $width
+  height: $height
+
+@mixin respond-to($breakpoint)
+  $bp-value: map.get($breakpoints, $breakpoint)
+  @if $bp-value
+    @media (min-width: $bp-value)
+      @content
+  @else
+    @warn "Unknown breakpoint: #{$breakpoint}"
+
+// Shorthand mixin syntax
+=button-base
+  display: inline-block
+  padding: spacing(1) spacing(2)
+  border: none
+  border-radius: 4px
+  cursor: pointer
+  transition: all 0.3s ease
+
+  &:hover
+    transform: translateY(-2px)
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)
+
+  &:active
+    transform: translateY(0)
+
+// Placeholder selectors
+%clearfix
+  &::after
+    content: ""
+    display: table
+    clear: both
+
+%visually-hidden
+  position: absolute
+  width: 1px
+  height: 1px
+  padding: 0
+  margin: -1px
+  overflow: hidden
+  clip: rect(0, 0, 0, 0)
+  border: 0
+
+// Base styles
+*
+  box-sizing: border-box
+  margin: 0
+  padding: 0
+
+html
+  font-size: $base-font-size
+  line-height: 1.5
+
+body
+  font-family: $font-stack
+  color: #333
+  background-color: #fafafa
+
+// Typography
+h1, h2, h3, h4, h5, h6
+  margin-bottom: spacing(2)
+  font-weight: 600
+  line-height: 1.2
+
+// Generate heading sizes with loop
+@for $i from 1 through 6
+  h#{$i}
+    font-size: px-to-rem(48px - ($i * 6))
+
+// Links
+a
+  color: $primary-color
+  text-decoration: none
+  transition: color 0.2s ease
+
+  &:hover
+    color: color.adjust($primary-color, $lightness: -10%)
+
+  &:focus
+    outline: 2px solid $primary-color
+    outline-offset: 2px
+
+// Buttons
+.btn
+  +button-base
+
+  // Generate button variants
+  @each $name, $color in $theme-colors
+    &--#{$name}
+      background-color: $color
+      color: color-contrast($color)
+
+      &:hover
+        background-color: color.adjust($color, $lightness: -10%)
+
+// Layout components
+.container
+  width: 100%
+  max-width: 1200px
+  margin: 0 auto
+  padding: 0 spacing(2)
+  @extend %clearfix
+
+  @include respond-to(medium)
+    padding: 0 spacing(3)
+
+  @include respond-to(large)
+    padding: 0 spacing(4)
+
+.row
+  display: flex
+  flex-wrap: wrap
+  margin: 0 spacing(-1)
+
+// Grid columns
+@for $i from 1 through 12
+  .col-#{$i}
+    flex: 0 0 math.percentage(math.div($i, 12))
+    max-width: math.percentage(math.div($i, 12))
+    padding: 0 spacing(1)
+
+// Card component
+.card
+  background: white
+  border-radius: 8px
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
+  overflow: hidden
+  transition: box-shadow 0.3s ease
+
+  &:hover
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15)
+
+  &__header
+    padding: spacing(2)
+    border-bottom: 1px solid #eee
+
+  &__body
+    padding: spacing(3)
+
+  &__footer
+    padding: spacing(2)
+    background: #f8f9fa
+    border-top: 1px solid #eee
+
+// Form elements
+.form-group
+  margin-bottom: spacing(2)
+
+  label
+    display: block
+    margin-bottom: spacing(0.5)
+    font-weight: 500
+
+  input, textarea, select
+    width: 100%
+    padding: spacing(1) spacing(1.5)
+    border: 1px solid #ccc
+    border-radius: 4px
+    font-size: 1rem
+    transition: border-color 0.2s ease
+
+    &:focus
+      outline: none
+      border-color: $primary-color
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.2)
+
+    &:disabled
+      background: #e9ecef
+      cursor: not-allowed
+
+// Utilities
+@each $prop, $abbrev in (margin: m, padding: p)
+  @each $size in (0, 1, 2, 3, 4, 5)
+    .#{$abbrev}-#{$size}
+      #{$prop}: spacing($size)
+
+    .#{$abbrev}t-#{$size}
+      #{$prop}-top: spacing($size)
+
+    .#{$abbrev}r-#{$size}
+      #{$prop}-right: spacing($size)
+
+    .#{$abbrev}b-#{$size}
+      #{$prop}-bottom: spacing($size)
+
+    .#{$abbrev}l-#{$size}
+      #{$prop}-left: spacing($size)
+
+    .#{$abbrev}x-#{$size}
+      #{$prop}-left: spacing($size)
+      #{$prop}-right: spacing($size)
+
+    .#{$abbrev}y-#{$size}
+      #{$prop}-top: spacing($size)
+      #{$prop}-bottom: spacing($size)
+
+// Display utilities
+$displays: (none, inline, inline-block, block, flex, inline-flex, grid)
+
+@each $display in $displays
+  .d-#{$display}
+    display: $display
+
+// Flex utilities
+.flex-row
+  flex-direction: row
+
+.flex-column
+  flex-direction: column
+
+.justify-start
+  justify-content: flex-start
+
+.justify-end
+  justify-content: flex-end
+
+.justify-center
+  justify-content: center
+
+.justify-between
+  justify-content: space-between
+
+.justify-around
+  justify-content: space-around
+
+.align-start
+  align-items: flex-start
+
+.align-end
+  align-items: flex-end
+
+.align-center
+  align-items: center
+
+.align-stretch
+  align-items: stretch
+
+// Text utilities
+.text-left
+  text-align: left
+
+.text-center
+  text-align: center
+
+.text-right
+  text-align: right
+
+// Screen reader only (using placeholder)
+.sr-only
+  @extend %visually-hidden
+
+// Animations
+@keyframes fadeIn
+  from
+    opacity: 0
+  to
+    opacity: 1
+
+@keyframes slideInUp
+  from
+    opacity: 0
+    transform: translateY(20px)
+  to
+    opacity: 1
+    transform: translateY(0)
+
+@keyframes pulse
+  0%
+    transform: scale(1)
+  50%
+    transform: scale(1.05)
+  100%
+    transform: scale(1)
+
+.animate-fade-in
+  animation: fadeIn 0.3s ease-in
+
+.animate-slide-in-up
+  animation: slideInUp 0.4s ease-out
+
+.animate-pulse
+  animation: pulse 2s infinite
+
+// Debug mode
+$debug-mode: false
+
+@if $debug-mode
+  *
+    outline: 1px solid red !important
