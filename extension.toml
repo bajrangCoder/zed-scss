@@ -17,12 +17,12 @@ rev = "26e67021380a2fe0cda89bafd2e131d554f3d2af"
 
 [language_servers.scss-lsp]
 name = "SCSS Language Server"
-language = "SCSS"
+languages = ["SCSS"]
 
 [language_servers.some-sass-lsp]
 name = "Some Sass Language Server"
-language_servers = ["SCSS", "SASS"]
+languages = ["SCSS", "SASS"]
 
-[language-servers.some-sass-lsp.language_ids]
+[language_servers.some-sass-lsp.language_ids]
 "SCSS" = "scss"
 "SASS" = "sass"
