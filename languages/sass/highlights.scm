@@ -10,8 +10,10 @@
   "@media"
   "@charset"
   "@namespace"
-  "@keyframes"
   "@supports"
+  "@scope"
+  "@layer"
+  "@container"
   "@font-face"
   "@mixin"
   "@include"
@@ -61,12 +63,6 @@
 (boolean_value) @constant
 (null_value) @constant
 
-; CSS Keywords
-(css_keyword) @constant
-
-; Color Keywords
-(color_keyword) @constant
-
 ; CSS Custom Properties
 (custom_property_name) @property
 
@@ -76,17 +72,20 @@
 (global) @keyword
 (optional_flag) @keyword
 
-; Numbers
+; Numbers and units
 (integer_value) @number
 (float_value) @number
+(unit) @type
 
 ; Colors
 (color_value) @string.special
 
+; Unicode Range
+(unicode_range) @string.special
+
 ; Strings
 (string_value) @string
 (escape_sequence) @string.escape
-(unicode_escape) @string.escape
 
 ; Variables
 (variable_name) @variable
@@ -187,6 +186,14 @@
 
 ; Media queries
 (keyword_query) @keyword
+(feature_name) @property
+
+; Range queries
+(range_query) @keyword
+
+; Layer and Container
+(layer_name) @type
+(container_name) @type
 
 ; Keyframes
 (keyframes_name) @string.special
