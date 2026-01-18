@@ -1,9 +1,6 @@
-; Sass Syntax Highlighting Queries
-; ==================================
-
 ; Comments
-(comment) @comment.block
-(single_line_comment) @comment.line
+(comment) @comment
+(single_line_comment) @comment
 
 ; Keywords
 [
@@ -35,7 +32,7 @@
 
 (at_keyword) @keyword
 
-; Shorthand keywords (= for @mixin, + for @include)
+; Shorthand keywords
 (shorthand_mixin) @keyword
 (shorthand_include) @keyword
 
@@ -49,7 +46,7 @@
   "or"
   "not"
   "only"
-] @keyword.control
+] @keyword
 
 ; Module keywords
 [
@@ -58,33 +55,33 @@
   "using"
   "hide"
   "show"
-] @keyword.import
+] @keyword
 
 ; Boolean and null literals
-(boolean_value) @constant.builtin.boolean
-(null_value) @constant.builtin
+(boolean_value) @constant
+(null_value) @constant
 
-; CSS Keywords (inherit, auto, flex, etc.)
-(css_keyword) @constant.builtin
+; CSS Keywords
+(css_keyword) @constant
 
-; Color Keywords (red, blue, transparent, etc.)
-(color_keyword) @constant.numeric.color
+; Color Keywords
+(color_keyword) @constant
 
 ; CSS Custom Properties
-(custom_property_name) @property.definition
+(custom_property_name) @property
 
 ; Important/default/global flags
-(important) @keyword.modifier
-(default) @keyword.modifier
-(global) @keyword.modifier
-(optional_flag) @keyword.modifier
+(important) @keyword
+(default) @keyword
+(global) @keyword
+(optional_flag) @keyword
 
-; Numbers (include units since they're now combined)
+; Numbers
 (integer_value) @number
-(float_value) @number.float
+(float_value) @number
 
 ; Colors
-(color_value) @constant.numeric.color
+(color_value) @string.special
 
 ; Strings
 (string_value) @string
@@ -102,42 +99,36 @@
 ; Functions
 (function_name) @function
 (function_statement
-  (name) @function.definition)
+  (name) @function)
 (mixin_statement
-  (name) @function.definition)
+  (name) @function)
 (mixin_name) @function
 (call_expression
-  (function_name) @function.call)
+  (function_name) @function)
 
-; Color functions
+; Built-in functions
 (color_function
   (function_name) @function.builtin)
-
-; Gradient functions
 (gradient_function
   (function_name) @function.builtin)
-
-; Math functions
 (math_function
   (function_name) @function.builtin)
-
-; var() function
 (var_function
   (function_name) @function.builtin)
 
 ; Selectors
 (tag_name) @tag
-(class_name) @type.class
-(id_name) @type.id
-(placeholder_name) @type.placeholder
+(class_name) @type
+(id_name) @type
+(placeholder_name) @type
 (nesting_selector) @punctuation.special
 (universal_selector) @tag
 
 ; Pseudo-classes and pseudo-elements
 (pseudo_class_selector
-  (class_name) @type.pseudo)
+  (class_name) @type)
 (pseudo_element_selector
-  (element_name) @type.pseudo)
+  (element_name) @type)
 
 ; Attribute selectors
 (attribute_name) @attribute
@@ -152,8 +143,8 @@
   ] @operator)
 
 ; Namespace
-(namespace_name) @namespace
-(module) @namespace
+(namespace_name) @type
+(module) @type
 
 ; Interpolation
 (interpolation
@@ -170,15 +161,14 @@
   ">"
   "<="
   ">="
+  "+"
+  "-"
 ] @operator
 
 ; Punctuation
 [
   "("
   ")"
-] @punctuation.bracket
-
-[
   "["
   "]"
 ] @punctuation.bracket
@@ -196,7 +186,7 @@
 "..." @punctuation.special
 
 ; Media queries
-(keyword_query) @keyword.media
+(keyword_query) @keyword
 
 ; Keyframes
 (keyframes_name) @string.special

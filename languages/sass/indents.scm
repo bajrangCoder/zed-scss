@@ -1,27 +1,24 @@
-; Sass Indentation Queries
-; =========================
-
-; Increase indent after block-opening statements
-(rule_set) @indent.begin
-(mixin_statement) @indent.begin
-(function_statement) @indent.begin
-(if_clause) @indent.begin
-(else_if_clause) @indent.begin
-(else_clause) @indent.begin
-(each_statement) @indent.begin
-(for_statement) @indent.begin
-(while_statement) @indent.begin
-(media_statement) @indent.begin
-(supports_statement) @indent.begin
-(keyframes_statement) @indent.begin
-(at_root_statement) @indent.begin
-(include_statement) @indent.begin
-(placeholder) @indent.begin
-
-; Block ends decrease indent
-(block) @indent.end
+; Block-opening statements that should increase indent
+(rule_set) @indent
+(mixin_statement) @indent
+(function_statement) @indent
+(if_clause) @indent
+(else_if_clause) @indent
+(else_clause) @indent
+(each_statement) @indent
+(for_statement) @indent
+(while_statement) @indent
+(media_statement) @indent
+(supports_statement) @indent
+(keyframes_statement) @indent
+(at_root_statement) @indent
+(placeholder) @indent
+(keyframe_block) @indent
 
 ; Property declarations with nested blocks
 (declaration
   (property_name)
-  (block)) @indent.begin
+  (block)) @indent
+
+; Decrease indent at block end
+(block) @outdent
