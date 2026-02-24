@@ -1,4 +1,4 @@
-name = "Scss"
+name = "SCSS"
 grammar = "scss"
 path_suffixes = ["scss"]
 block_comment = ["/* ", " */"]
