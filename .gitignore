@@ -1,4 +1,7 @@
 target
 *.wasm
+*.nix
+.direnv
+.envrc
 grammars
 test.scss

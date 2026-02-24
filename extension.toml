@@ -7,9 +7,12 @@ authors = ["Raunak Raj <bajrangcoders@gmail.com>"]
 repository = "https://github.com/bajrangCoder/zed-scss"
 
 [grammars.scss]
-repository = "https://github.com/savetheclocktower/tree-sitter-scss"
-rev = "f5dfc3b4609d01fb11af8c97f3948fffeff25e92"
+repository = "https://github.com/simeonoff/tree-sitter-scss"
+rev = "bb8f851258c7471839bee18d5fc963e51c36aed6"
 
+[grammars.sassdoc]
+repository = "https://github.com/simeonoff/tree-sitter-sassdoc"
+rev = "cb8295778a66b73ed5cef2fc112f41c9e804e806"
 
 [grammars.sass]
 repository = "https://github.com/bajrangCoder/tree-sitter-sass"
