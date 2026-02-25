@@ -8,7 +8,7 @@ repository = "https://github.com/bajrangCoder/zed-scss"
 
 [grammars.scss]
 repository = "https://github.com/simeonoff/tree-sitter-scss"
-rev = "bb8f851258c7471839bee18d5fc963e51c36aed6"
+rev = "342f6cee7faf5b2fbe6eb91db2bdc04422297377"
 
 [grammars.sassdoc]
 repository = "https://github.com/simeonoff/tree-sitter-sassdoc"
