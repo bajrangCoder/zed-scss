@@ -8,11 +8,13 @@ SCSS and SASS support for [Zed](https://zed.dev).
 - Outline View
 - IntelliSense(uses vscode-css-language-server and [some-sass](https://github.com/wkillerud/some-sass/))
 - Formatting
+- SassDoc Support
 
 ## Grammar
 
-- [tree-sitter-scss](https://github.com/savetheclocktower/tree-sitter-scss)
+- [tree-sitter-scss](https://github.com/simeonoff/tree-sitter-scss)
 - [tree-sitter-sass](https://github.com/bajrangCoder/tree-sitter-sass)
+- [tree-sitter-sassdoc](https://github.com/simeonoff/tree-sitter-sassdoc)
 
 ## Feedback
 
