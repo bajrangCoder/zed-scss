@@ -22,6 +22,7 @@
   "-"
   "*"
   "/"
+  "%"
   "="
   "=="
   "!="
@@ -37,25 +38,27 @@
 ] @operator
 
 ; Scope keyword operators to their parent nodes to avoid
-; false matches inside identifiers (e.g. "not" in "annotation")
+; false matches inside identifiers (e.g. "not" in "annotation").
+; The capture must be placed on the string node itself (inside the
+; parentheses) to avoid highlighting the entire parent expression.
 [
-  (binary_query "and")
-  (binary_query "or")
-  (unary_query "not")
-  (unary_query "only")
-  (style_query "and")
-  (style_query "or")
-  (style_query "not")
-  (scroll_state_query "and")
-  (scroll_state_query "or")
-  (scroll_state_query "not")
-  (if_style_condition "and")
-  (if_style_condition "or")
-  (if_style_condition "not")
-  (binary_expression "and")
-  (binary_expression "or")
-  (unary_expression "not")
-] @keyword.operator
+  (binary_query "and" @keyword.operator)
+  (binary_query "or" @keyword.operator)
+  (unary_query "not" @keyword.operator)
+  (unary_query "only" @keyword.operator)
+  (style_query "and" @keyword.operator)
+  (style_query "or" @keyword.operator)
+  (style_query "not" @keyword.operator)
+  (scroll_state_query "and" @keyword.operator)
+  (scroll_state_query "or" @keyword.operator)
+  (scroll_state_query "not" @keyword.operator)
+  (if_style_condition "and" @keyword.operator)
+  (if_style_condition "or" @keyword.operator)
+  (if_style_condition "not" @keyword.operator)
+  (binary_expression "and" @keyword.operator)
+  (binary_expression "or" @keyword.operator)
+  (unary_expression "not" @keyword.operator)
+]
 
 (pseudo_element_selector "::" (tag_name) @selector.pseudo)
 (pseudo_class_selector ":" (class_name) @selector.pseudo)
@@ -64,8 +67,9 @@
 [
   (variable_name)
   (variable_value)
-  (container_statement (container_name))
 ] @variable.other.member
+
+(container_statement (container_name) @variable.other.member)
 
 (argument_name) @variable.parameter
 
@@ -81,6 +85,7 @@
 (namespace_name) @namespace
 (namespace_selector (tag_name) @namespace "|")
 (variable_module (module) @namespace)
+(call_expression module: (module) @namespace)
 
 (attribute_name) @attribute
 
@@ -136,31 +141,40 @@
 ] @keyword
 
 ; Scope bare keyword strings to their parent nodes to avoid
-; false matches inside identifiers (e.g. "as" in "ease-out")
+; false matches inside identifiers (e.g. "as" in "ease-out").
+; The capture must be placed on the string node itself (inside the
+; parentheses) to avoid highlighting the entire parent clause.
 [
-  (as_clause "as")
-  (with_clause "with")
-  (visibility_clause "hide")
-  (visibility_clause "show")
-] @keyword
+  (as_clause "as" @keyword)
+  (with_clause "with" @keyword)
+  (visibility_clause "hide" @keyword)
+  (visibility_clause "show" @keyword)
+]
 
 [
-  (selector_query "selector")
-  (style_query "style")
-  (scroll_state_query "scroll-state")
-  (font_tech_query "font-tech")
-  (font_format_query "font-format")
-  (at_rule_query "at-rule")
-  (named_feature_query "named-feature")
-  (import_layer "layer")
-  (import_supports "supports")
-  (if_style_condition "style")
-  (if_media_condition "media")
-  (if_supports_condition "supports")
-  (if_sass_condition "sass")
-] @function.builtin
+  (selector_query "selector" @function.builtin)
+  (style_query "style" @function.builtin)
+  (scroll_state_query "scroll-state" @function.builtin)
+  (font_tech_query "font-tech" @function.builtin)
+  (font_format_query "font-format" @function.builtin)
+  (at_rule_query "at-rule" @function.builtin)
+  (named_feature_query "named-feature" @function.builtin)
+  (import_layer "layer" @function.builtin)
+  (import_supports "supports" @function.builtin)
+  (if_style_condition "style" @function.builtin)
+  (if_media_condition "media" @function.builtin)
+  (if_supports_condition "supports" @function.builtin)
+  (if_sass_condition "sass" @function.builtin)
+]
 
-(if_expression (function_name) @function.builtin)
+[
+  (if_expression (function_name) @function.builtin)
+  (attr_expression (function_name) @function.builtin)
+  (attr_type_function (function_name) @function.builtin)
+]
+
+(attr_type (keyword) @keyword)
+(syntax_type) @type
 (if_else_condition) @keyword.control.conditional
 
 (style_condition
