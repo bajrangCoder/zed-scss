@@ -40,14 +40,14 @@
 (mixin_statement
     "@mixin" @context
     (name) @name
-    (_) @context.extra
+    (parameters)? @context.extra
     (block)
 ) @item
 
 (function_statement
     "@function" @context
     (name) @name
-    (parameters) @context.extra
+    (parameters)? @context.extra
 ) @item
 
 (each_statement
@@ -82,6 +82,38 @@
 (forward_statement
     "@forward" @context
     (_) @name
+) @item
+
+(include_statement
+    "@include" @context
+    (mixin_name) @name
+    (block)
+) @item
+
+(supports_statement
+    "@supports" @context
+    (_) @name
+    (block)
+) @item
+
+(at_root_statement
+    "@at-root" @context
+    (selectors
+      .
+      (_) @name
+    )
+    (block)
+) @item
+
+(property_statement
+    "@property" @context
+    (property_name) @name
+    (block)
+) @item
+
+(scope_statement
+    "@scope" @name
+    (block)
 ) @item
 
 (if_clause
@@ -139,3 +171,4 @@
 ) @item
 
 (comment) @annotation
+(sassdoc_block) @annotation

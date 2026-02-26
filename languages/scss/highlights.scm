@@ -1,14 +1,16 @@
 [
   (comment)
   (single_line_comment)
-  (sassdoc_block)
 ] @comment
 
+(sassdoc_block) @comment.doc
+
+(tag_name) @tag
+
 [
-  (tag_name)
   (universal_selector)
   (nesting_selector)
-] @tag
+] @character.special
 
 (attribute_selector (plain_value) @string)
 (parenthesized_query
@@ -60,16 +62,16 @@
   (unary_expression "not" @keyword.operator)
 ]
 
-(pseudo_element_selector "::" (tag_name) @selector.pseudo)
-(pseudo_class_selector ":" (class_name) @selector.pseudo)
-(page_pseudo_class) @selector.pseudo
+(pseudo_element_selector "::" (tag_name) @attribute)
+(pseudo_class_selector ":" (class_name) @attribute)
+(page_pseudo_class) @attribute
 
 [
   (variable_name)
   (variable_value)
-] @variable.other.member
+] @variable
 
-(container_statement (container_name) @variable.other.member)
+(container_statement (container_name) @variable)
 
 (argument_name) @variable.parameter
 
@@ -79,15 +81,15 @@
   (property_name)
 ] @property
 
-(id_name) @selector.id
-(class_name) @selector.class
-(placeholder_name) @selector.class
-(namespace_name) @namespace
-(namespace_selector (tag_name) @namespace "|")
-(variable_module (module) @namespace)
-(call_expression module: (module) @namespace)
+(id_name) @constant
+(class_name) @type
+(placeholder_name) @type
+(namespace_name) @module
+(namespace_selector (tag_name) @module "|")
+(variable_module (module) @module)
+(call_expression module: (module) @module)
 
-(attribute_name) @attribute
+(attribute_name) @tag.attribute
 
 [
   (function_name)
@@ -99,10 +101,11 @@
 
 [
   (plain_value)
-  (keyframes_name)
   (keyword_query)
   (feature_value)
 ] @constant.builtin
+
+(keyframes_name) @variable
 
 (interpolation "#{" @punctuation.special "}" @punctuation.special)
 
@@ -128,17 +131,22 @@
   "@debug"
   "@error"
   "@extend"
-  "@mixin"
   "@warn"
   (at_keyword)
+  (margin_at_keyword)
+  (font_feature_value_keyword)
+] @keyword.directive
+
+[
   (to)
   (from)
+] @keyword
+
+[
   (important)
   (default)
   (global)
-  (margin_at_keyword)
-  (font_feature_value_keyword)
-] @keyword
+] @keyword.modifier
 
 ; Scope bare keyword strings to their parent nodes to avoid
 ; false matches inside identifiers (e.g. "as" in "ease-out").
@@ -175,7 +183,7 @@
 
 (attr_type (keyword) @keyword)
 (syntax_type) @type
-(if_else_condition) @keyword.control.conditional
+(if_else_condition) @keyword.conditional
 
 (style_condition
   (property_name) @property)
@@ -184,15 +192,18 @@
   (state_name) @property
   (state_value) @constant.builtin)
 
-"@function" @keyword.function
+[
+  "@function"
+  "@mixin"
+] @keyword.function
 
-"@return" @keyword.control.return
+"@return" @keyword.return
 
 [
   "@else"
   "@if"
-] @keyword.control.conditional
-(else_if_clause "if" @keyword.control.conditional)
+] @keyword.conditional
+(else_if_clause "if" @keyword.conditional)
 
 ; Scope loop keywords to their parent nodes
 [
@@ -209,16 +220,21 @@
   "@import"
   "@include"
   "@use"
-] @keyword.control.import
+] @keyword.import
+
+; Custom properties (CSS variables) as @variable
+((property_name) @variable
+  (#lua-match? @variable "^[-][-]"))
+
+((plain_value) @variable
+  (#lua-match? @variable "^[-][-]"))
 
 (string_value) @string
 (color_value) @string.special
 
-[
-  (integer_value)
-  (float_value)
-] @number
-(unit) @type.unit
+(integer_value) @number
+(float_value) @number.float
+(unit) @type
 
 (boolean_value) @boolean
 (null_value) @constant.builtin

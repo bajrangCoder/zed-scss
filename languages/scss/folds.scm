@@ -1,43 +1,62 @@
-; Fold blocks with braces
-(block) @fold
-
-; Fold rule sets
+; Rule sets
 (rule_set) @fold
 
-; Fold at-rule statements with blocks
-(media_statement) @fold
-(supports_statement) @fold
-(keyframes_statement) @fold
-(container_statement) @fold
-(layer_statement) @fold
-(scope_statement) @fold
-(starting_style_statement) @fold
-(view_transition_statement) @fold
-(font_face_statement) @fold
-(counter_style_statement) @fold
-(position_try_statement) @fold
-(font_palette_values_statement) @fold
-(page_statement) @fold
-(font_feature_values_statement) @fold
+; At-rule statements with blocks
+[
+  (media_statement)
+  (supports_statement)
+  (keyframes_statement)
+  (container_statement)
+  (layer_statement)
+  (scope_statement)
+  (starting_style_statement)
+  (view_transition_statement)
+  (font_face_statement)
+  (counter_style_statement)
+  (position_try_statement)
+  (font_palette_values_statement)
+  (page_statement)
+  (font_feature_values_statement)
+  (property_statement)
+  (at_root_statement)
+  (at_rule)
+] @fold
 
-; Fold control flow statements
-(if_statement) @fold
-(each_statement) @fold
-(for_statement) @fold
-(while_statement) @fold
+; Nested at-rule blocks
+(margin_at_rule) @fold
+(font_feature_value_block) @fold
+(keyframe_block) @fold
 
-; Fold function and mixin definitions
-(function_statement) @fold
-(mixin_statement) @fold
+; Control flow statements
+[
+  (if_statement)
+  (each_statement)
+  (for_statement)
+  (while_statement)
+] @fold
 
-; Fold placeholders
+; Function and mixin definitions
+[
+  (function_statement)
+  (mixin_statement)
+] @fold
+
+; Include statements with content blocks
+(include_statement) @fold
+
+; Placeholders
 (placeholder) @fold
 
-; Fold multi-line comments
+; Multi-line comments
 (comment) @fold
 
-; Fold sassdoc blocks
+; Sassdoc blocks
 (sassdoc_block) @fold
 
-; Fold map values (useful for large config maps)
+; Map values (useful for large config maps)
 (map_value) @fold
+
+; Consecutive import/use/forward statements
+(import_statement)+ @fold
+(use_statement)+ @fold
+(forward_statement)+ @fold
