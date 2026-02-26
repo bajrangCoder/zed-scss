@@ -1,2 +1,3 @@
 name = "SassDoc"
 grammar = "sassdoc"
+hidden = true
