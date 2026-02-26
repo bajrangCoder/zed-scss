@@ -2,6 +2,8 @@ use std::{env, fs};
 
 use zed_extension_api::{self as zed, settings::LspSettings, LanguageServerId, Result};
 
+use super::{merge_json_value, settings_from_worktree};
+
 const SERVER_PATH: &str =
     "node_modules/vscode-langservers-extracted/bin/vscode-css-language-server";
 const PACKAGE_NAME: &str = "vscode-langservers-extracted";
@@ -107,13 +109,30 @@ impl SCSSLsp {
         language_server_id: &LanguageServerId,
         worktree: &zed::Worktree,
     ) -> Result<Option<zed::serde_json::Value>> {
-        if let Ok(Some(settings)) = LspSettings::for_worktree(language_server_id.as_ref(), worktree)
-            .map(|lsp_settings| lsp_settings.settings)
-        {
-            Ok(Some(settings))
-        } else {
-            self.language_server_initialization_options(language_server_id, worktree)
-                .map(|init_options| init_options.and_then(|opts| opts.get("settings").cloned()))
+        let mut config = zed::serde_json::json!({
+            "css": {
+                "lint": {}
+            },
+            "less": {
+                "lint": {}
+            },
+            "scss": {
+                "lint": {}
+            }
+        });
+
+        if let Some(settings) = settings_from_worktree(language_server_id, worktree) {
+            let has_css_roots = settings.get("scss").is_some()
+                || settings.get("css").is_some()
+                || settings.get("less").is_some();
+
+            if has_css_roots {
+                merge_json_value(&mut config, settings);
+            } else if let Some(scss_config) = config.get_mut("scss") {
+                merge_json_value(scss_config, settings);
+            }
         }
+
+        Ok(Some(config))
     }
 }

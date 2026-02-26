@@ -2,6 +2,8 @@ use std::{env, fs};
 
 use zed_extension_api::{self as zed, settings::LspSettings, LanguageServerId, Result};
 
+use super::{merge_json_value, settings_from_worktree};
+
 const SERVER_PATH: &str = "node_modules/some-sass-language-server/bin/some-sass-language-server";
 const PACKAGE_NAME: &str = "some-sass-language-server";
 
@@ -106,13 +108,18 @@ impl SomeSass {
         language_server_id: &LanguageServerId,
         worktree: &zed::Worktree,
     ) -> Result<Option<zed::serde_json::Value>> {
-        if let Ok(Some(settings)) = LspSettings::for_worktree(language_server_id.as_ref(), worktree)
-            .map(|lsp_settings| lsp_settings.settings)
-        {
-            Ok(Some(settings))
-        } else {
-            self.language_server_initialization_options(language_server_id, worktree)
-                .map(|init_options| init_options.and_then(|opts| opts.get("settings").cloned()))
+        let mut config = zed::serde_json::json!({
+            "somesass": {}
+        });
+
+        if let Some(settings) = settings_from_worktree(language_server_id, worktree) {
+            if settings.get("somesass").is_some() {
+                merge_json_value(&mut config, settings);
+            } else if let Some(somesass_config) = config.get_mut("somesass") {
+                merge_json_value(somesass_config, settings);
+            }
         }
+
+        Ok(Some(config))
     }
 }
