@@ -5,12 +5,11 @@
 
 (sassdoc_block) @comment.doc
 
-(tag_name) @tag
-
 [
+  (tag_name)
   (universal_selector)
   (nesting_selector)
-] @character.special
+] @tag
 
 (attribute_selector (plain_value) @string)
 (parenthesized_query
@@ -40,38 +39,35 @@
 ] @operator
 
 ; Scope keyword operators to their parent nodes to avoid
-; false matches inside identifiers (e.g. "not" in "annotation").
-; The capture must be placed on the string node itself (inside the
-; parentheses) to avoid highlighting the entire parent expression.
+; false matches inside identifiers (e.g. "not" in "annotation")
 [
-  (binary_query "and" @keyword.operator)
-  (binary_query "or" @keyword.operator)
-  (unary_query "not" @keyword.operator)
-  (unary_query "only" @keyword.operator)
-  (style_query "and" @keyword.operator)
-  (style_query "or" @keyword.operator)
-  (style_query "not" @keyword.operator)
-  (scroll_state_query "and" @keyword.operator)
-  (scroll_state_query "or" @keyword.operator)
-  (scroll_state_query "not" @keyword.operator)
-  (if_style_condition "and" @keyword.operator)
-  (if_style_condition "or" @keyword.operator)
-  (if_style_condition "not" @keyword.operator)
-  (binary_expression "and" @keyword.operator)
-  (binary_expression "or" @keyword.operator)
-  (unary_expression "not" @keyword.operator)
-]
+  (binary_query "and")
+  (binary_query "or")
+  (unary_query "not")
+  (unary_query "only")
+  (style_query "and")
+  (style_query "or")
+  (style_query "not")
+  (scroll_state_query "and")
+  (scroll_state_query "or")
+  (scroll_state_query "not")
+  (if_style_condition "and")
+  (if_style_condition "or")
+  (if_style_condition "not")
+  (binary_expression "and")
+  (binary_expression "or")
+  (unary_expression "not")
+] @keyword.operator
 
-(pseudo_element_selector "::" (tag_name) @attribute)
-(pseudo_class_selector ":" (class_name) @attribute)
-(page_pseudo_class) @attribute
+(pseudo_element_selector "::" (tag_name) @selector.pseudo)
+(pseudo_class_selector ":" (class_name) @selector.pseudo)
+(page_pseudo_class) @selector.pseudo
 
 [
   (variable_name)
   (variable_value)
-] @variable
-
-(container_statement (container_name) @variable)
+  (container_statement (container_name))
+] @variable.other.member
 
 (argument_name) @variable.parameter
 
@@ -81,15 +77,14 @@
   (property_name)
 ] @property
 
-(id_name) @constant
-(class_name) @type
-(placeholder_name) @type
-(namespace_name) @module
-(namespace_selector (tag_name) @module "|")
-(variable_module (module) @module)
-(call_expression module: (module) @module)
+(id_name) @selector.id
+(class_name) @selector.class
+(placeholder_name) @selector.class
+(namespace_name) @namespace
+(namespace_selector (tag_name) @namespace "|")
+(variable_module (module) @namespace)
 
-(attribute_name) @tag.attribute
+(attribute_name) @attribute
 
 [
   (function_name)
@@ -101,11 +96,10 @@
 
 [
   (plain_value)
+  (keyframes_name)
   (keyword_query)
   (feature_value)
 ] @constant.builtin
-
-(keyframes_name) @variable
 
 (interpolation "#{" @punctuation.special "}" @punctuation.special)
 
@@ -133,57 +127,49 @@
   "@extend"
   "@warn"
   (at_keyword)
-  (margin_at_keyword)
-  (font_feature_value_keyword)
-] @keyword.directive
-
-[
   (to)
   (from)
-] @keyword
-
-[
   (important)
   (default)
   (global)
-] @keyword.modifier
+  (margin_at_keyword)
+  (font_feature_value_keyword)
+] @keyword
 
 ; Scope bare keyword strings to their parent nodes to avoid
-; false matches inside identifiers (e.g. "as" in "ease-out").
-; The capture must be placed on the string node itself (inside the
-; parentheses) to avoid highlighting the entire parent clause.
+; false matches inside identifiers (e.g. "as" in "ease-out")
 [
-  (as_clause "as" @keyword)
-  (with_clause "with" @keyword)
-  (visibility_clause "hide" @keyword)
-  (visibility_clause "show" @keyword)
-]
+  (as_clause "as")
+  (with_clause "with")
+  (visibility_clause "hide")
+  (visibility_clause "show")
+] @keyword
 
 [
-  (selector_query "selector" @function.builtin)
-  (style_query "style" @function.builtin)
-  (scroll_state_query "scroll-state" @function.builtin)
-  (font_tech_query "font-tech" @function.builtin)
-  (font_format_query "font-format" @function.builtin)
-  (at_rule_query "at-rule" @function.builtin)
-  (named_feature_query "named-feature" @function.builtin)
-  (import_layer "layer" @function.builtin)
-  (import_supports "supports" @function.builtin)
-  (if_style_condition "style" @function.builtin)
-  (if_media_condition "media" @function.builtin)
-  (if_supports_condition "supports" @function.builtin)
-  (if_sass_condition "sass" @function.builtin)
-]
+  (selector_query "selector")
+  (style_query "style")
+  (scroll_state_query "scroll-state")
+  (font_tech_query "font-tech")
+  (font_format_query "font-format")
+  (at_rule_query "at-rule")
+  (named_feature_query "named-feature")
+  (import_layer "layer")
+  (import_supports "supports")
+  (if_style_condition "style")
+  (if_media_condition "media")
+  (if_supports_condition "supports")
+  (if_sass_condition "sass")
+] @function.builtin
 
 [
-  (if_expression (function_name) @function.builtin)
-  (attr_expression (function_name) @function.builtin)
-  (attr_type_function (function_name) @function.builtin)
-]
+  (if_expression (function_name))
+  (attr_expression (function_name))
+  (attr_type_function (function_name))
+] @function.builtin
 
 (attr_type (keyword) @keyword)
 (syntax_type) @type
-(if_else_condition) @keyword.conditional
+(if_else_condition) @keyword.control.conditional
 
 (style_condition
   (property_name) @property)
@@ -197,13 +183,13 @@
   "@mixin"
 ] @keyword.function
 
-"@return" @keyword.return
+"@return" @keyword.control.return
 
 [
   "@else"
   "@if"
-] @keyword.conditional
-(else_if_clause "if" @keyword.conditional)
+] @keyword.control.conditional
+(else_if_clause "if" @keyword.control.conditional)
 
 ; Scope loop keywords to their parent nodes
 [
@@ -220,21 +206,23 @@
   "@import"
   "@include"
   "@use"
-] @keyword.import
+] @keyword.control.import
 
 ; Custom properties (CSS variables) as @variable
 ((property_name) @variable
-  (#lua-match? @variable "^[-][-]"))
+  (#match? @variable "^[-][-]"))
 
 ((plain_value) @variable
-  (#lua-match? @variable "^[-][-]"))
+  (#match? @variable "^[-][-]"))
 
 (string_value) @string
 (color_value) @string.special
 
-(integer_value) @number
-(float_value) @number.float
-(unit) @type
+[
+  (integer_value)
+  (float_value)
+] @number
+(unit) @type.unit
 
 (boolean_value) @boolean
 (null_value) @constant.builtin

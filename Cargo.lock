@@ -766,7 +766,7 @@ dependencies = [
 
 [[package]]
 name = "zed_scss"
-version = "0.1.2"
+version = "0.1.7"
 dependencies = [
  "zed_extension_api",
 ]
