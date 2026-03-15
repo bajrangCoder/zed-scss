@@ -8,11 +8,11 @@ repository = "https://github.com/bajrangCoder/zed-scss"
 
 [grammars.scss]
 repository = "https://github.com/simeonoff/tree-sitter-scss"
-rev = "342f6cee7faf5b2fbe6eb91db2bdc04422297377"
+rev = "70fd97742c6e1af8a4fd71270b6322f2faaf5d96"
 
 [grammars.sassdoc]
 repository = "https://github.com/simeonoff/tree-sitter-sassdoc"
-rev = "cb8295778a66b73ed5cef2fc112f41c9e804e806"
+rev = "38abe86eac15ed8d668de04df963ef0a4c220cfe"
 
 [grammars.sass]
 repository = "https://github.com/bajrangCoder/tree-sitter-sass"

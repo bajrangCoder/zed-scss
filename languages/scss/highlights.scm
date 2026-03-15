@@ -134,6 +134,7 @@
   (global)
   (margin_at_keyword)
   (font_feature_value_keyword)
+  (optional)
 ] @keyword
 
 ; Scope bare keyword strings to their parent nodes to avoid
@@ -216,7 +217,8 @@
   (#match? @variable "^[-][-]"))
 
 (string_value) @string
-(color_value) @string.special
+(color_value "#" @punctuation.special)
+(color_value (hex_color) @string.special)
 
 [
   (integer_value)

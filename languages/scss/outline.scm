@@ -139,11 +139,12 @@
     (keyframes_name) @name
 ) @item
 
-(placeholder
-    (placeholder_selector
-      "%" @context
-      (placeholder_name) @name
-    )
+(rule_set
+    (selectors
+      (placeholder_selector
+        "%" @context
+        (placeholder_name) @name
+      ))
     (block)
 ) @item
 

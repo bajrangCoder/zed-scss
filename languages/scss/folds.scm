@@ -44,9 +44,6 @@
 ; Include statements with content blocks
 (include_statement) @fold
 
-; Placeholders
-(placeholder) @fold
-
 ; Multi-line comments
 (comment) @fold
 

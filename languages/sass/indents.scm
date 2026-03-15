@@ -19,6 +19,3 @@
 (declaration
   (property_name)
   (block)) @indent
-
-; Decrease indent at block end
-(block) @outdent
