@@ -4,11 +4,10 @@ SCSS and SASS support for [Zed](https://zed.dev).
 
 ## Features
 
-- Syntax Highlighting
+- Syntax Highlighting for scss, sass and sassdoc
 - Outline View
 - IntelliSense(uses vscode-css-language-server and [some-sass](https://github.com/wkillerud/some-sass/))
 - Formatting
-- SassDoc Support
 
 ## Grammar
 
