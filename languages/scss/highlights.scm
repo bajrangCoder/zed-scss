@@ -3,7 +3,8 @@
   (single_line_comment)
 ] @comment
 
-(sassdoc_block) @comment.doc
+(sassdoc_line) @comment.documentation
+(sassdoc_delimiter) @comment.documentation
 
 [
   (tag_name)
@@ -23,7 +24,6 @@
   "-"
   "*"
   "/"
-  "%"
   "="
   "=="
   "!="
@@ -37,6 +37,8 @@
   "<="
   (range_operator)
 ] @operator
+
+(binary_expression operator: "%" @operator)
 
 ; Scope keyword operators to their parent nodes to avoid
 ; false matches inside identifiers (e.g. "not" in "annotation")
@@ -80,9 +82,11 @@
 (id_name) @selector.id
 (class_name) @selector.class
 (placeholder_name) @selector.class
+(placeholder_selector "%" @punctuation.delimiter)
 (namespace_name) @namespace
 (namespace_selector (tag_name) @namespace "|")
 (variable_module (module) @namespace)
+(call_expression module: (module) @module)
 
 (attribute_name) @attribute
 
@@ -100,8 +104,6 @@
   (keyword_query)
   (feature_value)
 ] @constant.builtin
-
-(interpolation "#{" @punctuation.special "}" @punctuation.special)
 
 [
   "@media"
@@ -169,7 +171,7 @@
 ] @function.builtin
 
 (attr_type (keyword) @keyword)
-(syntax_type) @type
+(syntax_type "<" @punctuation.bracket ">" @punctuation.bracket) @type
 (if_else_condition) @keyword.control.conditional
 
 (style_condition
@@ -246,3 +248,5 @@
   "["
   "]"
 ] @punctuation.bracket
+
+(interpolation "#{" @punctuation.special "}" @punctuation.special) @embedded
