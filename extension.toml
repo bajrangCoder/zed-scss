@@ -1,5 +1,5 @@
 id = "scss"
-name = "SCSS"
+name = "SCSS & SASS"
 description = "SCSS and SASS support"
 version = "0.2.0"
 schema_version = 1
