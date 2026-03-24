@@ -41,7 +41,7 @@
     "@mixin" @context
     (name) @name
     (parameters)? @context.extra
-    (block)
+    (mixin_block)
 ) @item
 
 (function_statement
@@ -87,7 +87,7 @@
 (include_statement
     "@include" @context
     (mixin_name) @name
-    (block)
+    (mixin_block)
 ) @item
 
 (supports_statement

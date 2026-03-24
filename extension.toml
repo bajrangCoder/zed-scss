@@ -1,14 +1,14 @@
 id = "scss"
 name = "SCSS"
 description = "SCSS and SASS support"
-version = "0.1.9"
+version = "0.2.0"
 schema_version = 1
 authors = ["Raunak Raj <bajrangcoders@gmail.com>"]
 repository = "https://github.com/bajrangCoder/zed-scss"
 
 [grammars.scss]
 repository = "https://github.com/simeonoff/tree-sitter-scss"
-rev = "2746668f6fb9288f49d7337c50d66106223f8da1"
+rev = "3f918284a73a54b53e4f326b0aa8c74ccbf4ee4d"
 
 [grammars.sassdoc]
 repository = "https://github.com/simeonoff/tree-sitter-sassdoc"
