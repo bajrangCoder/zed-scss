@@ -768,6 +768,7 @@ dependencies = [
 name = "zed_scss"
 version = "0.1.7"
 dependencies = [
+ "semver",
  "zed_extension_api",
 ]
 
