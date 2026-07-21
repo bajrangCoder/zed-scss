@@ -2,6 +2,7 @@ name = "SCSS"
 grammar = "scss"
 path_suffixes = ["scss"]
 block_comment = ["/* ", " */"]
+line_comments = ["// "]
 autoclose_before = ";:.,=}])>"
 brackets = [
     { start = "{", end = "}", close = true, newline = true },
